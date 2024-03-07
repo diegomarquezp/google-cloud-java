@@ -12,7 +12,7 @@ import re
 import sys
 from ruamel.yaml import YAML
 
-yaml = YAML(typ="safe")
+yaml = YAML()
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -142,11 +142,13 @@ def add_new_library(
     new_library = {
         "api_shortname": api_shortname,
         "name_pretty": name_pretty,
-        "proto_path": proto_path,
         "product_documentation": product_docs,
         "api_description": api_description,
         "transport": transport,
         "destination_name": destination_name,
+        "GAPICs": [{
+            "proto_path": proto_path
+        }]
     }
 
     __add_item_if_set(new_library, "rest_docs", rest_docs)
@@ -155,6 +157,7 @@ def add_new_library(
 
     config["libraries"].append(new_library)
     config["libraries"] = sorted(config["libraries"], key=__compute_destination_name)
+
 
     with open(path_to_yaml, "w") as file_stream:
         yaml.dump(config, file_stream)
