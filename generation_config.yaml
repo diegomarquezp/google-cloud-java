@@ -655,6 +655,16 @@ libraries:
   - proto_path: google/cloud/metastore/v1alpha
   - proto_path: google/cloud/metastore/v1beta
 
+- api_shortname: datastore
+  name_pretty: Datastore API
+  product_documentation: https://cloud.google.com/datastore
+  api_description: Datastore is a highly scalable NoSQL database for your web and
+    mobile applications.
+  transport: grpc
+  destination_name: java-datastore
+  GAPICs:
+  - proto_path: google/datastore/v1
+  distribution_name: com.google-cloud:google-cloud-datastore
 - api_shortname: datastream
   name_pretty: Datastream
   product_documentation: https://cloud.google.com/datastream/docs
