@@ -1001,6 +1001,23 @@ libraries:
   GAPICs:
   - proto_path: google/cloud/iot/v1
 
+- api_shortname: datastore
+  name_pretty: Datastore API
+  product_documentation: https://cloud.google.com/datastore
+  api_description: Datastore is a highly scalable NoSQL database for your web and
+    mobile applications.
+  client_documentation: 
+    https://cloud.google.com/java/docs/reference/google-cloud-datastore/latest/overview
+  release_level: preview
+  distribution_name: com.google.cloud:google-cloud-datastore
+  library_name: java-datastore
+  api_id: datastore.googleapis.com
+  library_type: GAPIC_AUTO
+  group_id: com.google.cloud
+  cloud_api: true
+  GAPICs:
+  - proto_path: google/datastore/v1
+  requires_billing: true
 - api_shortname: cloudkms
   name_pretty: Cloud Key Management Service
   product_documentation: https://cloud.google.com/kms
