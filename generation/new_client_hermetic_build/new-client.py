@@ -1,6 +1,20 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Script for enabling generation of a new library
-Creates initial files and appends a new library to generation_config.yaml
+Appends a new library to `generation_config.yaml`
 
 Some of the logic is copied from new-client.py as
 a transition step while we test the hermetic build scripts
@@ -12,7 +26,7 @@ import re
 import sys
 from ruamel.yaml import YAML
 
-yaml = YAML(typ="safe")
+yaml = YAML()
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -75,14 +89,7 @@ def main(ctx):
     help="Description that appears in README.md",
 )
 @click.option(
-    "--transport",
-    type=click.Choice(["grpc", "http", "both"]),
-    default="grpc",
-    show_default=True,
-    help="A label that appears in repo-metadata.json",
-)
-@click.option(
-    "--destination-name",
+    "--library-name",
     type=str,
     default=None,
     help="The directory name of the new library. By default it's "
@@ -92,7 +99,69 @@ def main(ctx):
     "--distribution-name",
     type=str,
     help="Maven coordinates of the generated library. By default it's "
-    "com.google.cloud:google-cloud-<api_shortname>",
+    "com.google.cloud:google-cloud-<api_shortname>. "
+    "It cannot be set at the same time with group_id",
+)
+@click.option(
+    "--release-level",
+    type=click.Choice(["stable", "preview"]),
+    default="preview",
+    show_default=True,
+    help="A label that appears in repo-metadata.json. The first library "
+    "generation is always 'preview'.",
+)
+@click.option(
+    "--api-id",
+    type=str,
+    help="The value of the apiid parameter used in README.md It has link to "
+    "https://console.cloud.google.com/flows/enableapi?apiid=<api_id>",
+)
+@click.option(
+    "--requires-billing",
+    type=bool,
+    default=True,
+    show_default=True,
+    help="Based on this value, README.md explains whether billing setup is "
+    "needed or not.",
+)
+@click.option(
+    "--group-id",
+    type=str,
+    help="The group ID of the artifact when distribution_name is not set. "
+    "It cannot be set at the same time as distribution_name",
+)
+@click.option(
+    "--library-type",
+    type=str,
+    default="GAPIC_AUTO",
+    show_default=True,
+    help="A label that appears in repo-metadata.json to tell how the library is "
+    "maintained or generated",
+)
+@click.option("--api-reference", type=str, help="API reference for this library")
+@click.option("--codeowner-team", type=str, help="Team owning this library")
+@click.option(
+    "--excluded-dependencies",
+    type=str,
+    help="Comma-separated list of dependencies excluded from this library. The modules specified "
+    "here will not be added to the poms when postprocessing.",
+)
+@click.option(
+    "--excluded-poms",
+    type=str,
+    help="Comma-separated list of pom files excluded from postprocessing.",
+)
+@click.option(
+    "--googleapis-committish",
+    type=str,
+    help="Committish of googleapis/googleapis to get the protos from. It will "
+    "override the repo-level committish and is not subject to automatic updates",
+)
+@click.option("--issue-tracker", type=str, help="Issue tracker of the library")
+@click.option(
+    "--extra-versioned-modules",
+    type=str,
+    help="Extra modules of the libraries that will be managed via versions.txt",
 )
 def add_new_library(
     api_shortname,
@@ -102,17 +171,35 @@ def add_new_library(
     rest_docs,
     rpc_docs,
     api_description,
-    transport,
-    destination_name,
+    library_name,
     distribution_name,
+    release_level,
+    api_id,
+    requires_billing,
+    group_id,
+    library_type,
+    api_reference,
+    codeowner_team,
+    excluded_dependencies,
+    excluded_poms,
+    googleapis_committish,
+    issue_tracker,
+    extra_versioned_modules,
 ):
-    output_name = destination_name if destination_name else api_shortname
+    output_name = library_name.split("java-")[-1] if library_name else api_shortname
     if distribution_name is None:
-        distribution_name = f"com.google-cloud:google-cloud-{output_name}"
+        group_id = 'com.google.cloud'
+        distribution_name = f"{group_id}:google-cloud-{output_name}"
+    elif group_id:
+        sys.exit("--group-id and --distribution-name are mutually exclusive options")
+    else:
+        group_id = distribution_name.split(":")[0]
 
     distribution_name_short = re.split(r"[:\/]", distribution_name)[-1]
+    cloud_api = distribution_name_short.startswith("google-cloud-")
 
-    api_id = f"{api_shortname}.googleapis.com"
+    if api_id is None:
+        api_id = f"{api_shortname}.googleapis.com"
 
     if not product_docs.startswith("https"):
         sys.exit(
@@ -121,8 +208,8 @@ def add_new_library(
 
     client_documentation = f"https://cloud.google.com/java/docs/reference/{distribution_name_short}/latest/overview"
 
-    if destination_name is None:
-        destination_name = f"java-{api_shortname}"
+    if library_name is None:
+        library_name = f"java-{api_shortname}"
 
     if api_shortname == "":
         sys.exit("api_shortname is empty")
@@ -131,30 +218,36 @@ def add_new_library(
     with open(path_to_yaml, "r") as file_stream:
         config = yaml.load(file_stream)
 
-    # confirm library doesn't exist both in the monorepo and config yaml
-    path_to_library = os.path.join(script_dir, "..", "..", destination_name)
-
-    for library in config["libraries"]:
-        if __compute_destination_name(library) == destination_name:
-            print(f"library {destination_name} already exists")
-            sys.exit(1)
-
     new_library = {
         "api_shortname": api_shortname,
         "name_pretty": name_pretty,
-        "proto_path": proto_path,
         "product_documentation": product_docs,
         "api_description": api_description,
-        "transport": transport,
-        "destination_name": destination_name,
+        "client_documentation": client_documentation,
+        "release_level": release_level,
+        "distribution_name": distribution_name,
+        "library_name": library_name,
+        "api_id": api_id,
+        "library_type": library_type,
+        "group_id": group_id,
+        "cloud_api": cloud_api,
+        "GAPICs": [{"proto_path": proto_path}],
     }
 
-    __add_item_if_set(new_library, "rest_docs", rest_docs)
-    __add_item_if_set(new_library, "rpc_docs", rpc_docs)
+    __add_item_if_set(new_library, "requires_billing", requires_billing)
+    __add_item_if_set(new_library, "rest_documentation", rest_docs)
+    __add_item_if_set(new_library, "rpc_documentation", rpc_docs)
     __add_item_if_set(new_library, "distribution_name", distribution_name)
+    __add_item_if_set(new_library, "api_reference", api_reference)
+    __add_item_if_set(new_library, "codeowner_team", codeowner_team)
+    __add_item_if_set(new_library, "excluded_dependencies", excluded_dependencies)
+    __add_item_if_set(new_library, "excluded_poms", excluded_poms)
+    __add_item_if_set(new_library, "googleapis_commitish", googleapis_committish)
+    __add_item_if_set(new_library, "issue_tracker", issue_tracker)
+    __add_item_if_set(new_library, "extra_versioned_modules", extra_versioned_modules)
 
     config["libraries"].append(new_library)
-    config["libraries"] = sorted(config["libraries"], key=__compute_destination_name)
+    config["libraries"] = sorted(config["libraries"], key=__compute_library_name)
 
     with open(path_to_yaml, "w") as file_stream:
         yaml.dump(config, file_stream)
@@ -165,7 +258,7 @@ def __add_item_if_set(target, key, value):
         target[key] = value
 
 
-def __compute_destination_name(library: dict) -> str:
+def __compute_library_name(library: dict) -> str:
     if "library_name" in library:
         return f'java-{library["library_name"]}'
     return f'java-{library["api_shortname"]}'
