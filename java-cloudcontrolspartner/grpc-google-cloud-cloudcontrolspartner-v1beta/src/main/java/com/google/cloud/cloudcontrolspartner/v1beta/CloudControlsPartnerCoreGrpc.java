@@ -532,7 +532,7 @@ public final class CloudControlsPartnerCoreGrpc {
      *
      *
      * <pre>
-     * Lists customers of a partner identified by its Google Cloud organization ID
+     * Lists customers of a partner identified by its GCP organization id
      * </pre>
      */
     default void listCustomers(
@@ -696,7 +696,7 @@ public final class CloudControlsPartnerCoreGrpc {
      *
      *
      * <pre>
-     * Lists customers of a partner identified by its Google Cloud organization ID
+     * Lists customers of a partner identified by its GCP organization id
      * </pre>
      */
     public void listCustomers(
@@ -841,7 +841,7 @@ public final class CloudControlsPartnerCoreGrpc {
      *
      *
      * <pre>
-     * Lists customers of a partner identified by its Google Cloud organization ID
+     * Lists customers of a partner identified by its GCP organization id
      * </pre>
      */
     public com.google.cloud.cloudcontrolspartner.v1beta.ListCustomersResponse listCustomers(
@@ -972,7 +972,7 @@ public final class CloudControlsPartnerCoreGrpc {
      *
      *
      * <pre>
-     * Lists customers of a partner identified by its Google Cloud organization ID
+     * Lists customers of a partner identified by its GCP organization id
      * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<

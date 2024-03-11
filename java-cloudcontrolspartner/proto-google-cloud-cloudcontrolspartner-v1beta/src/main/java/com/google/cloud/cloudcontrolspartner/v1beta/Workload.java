@@ -626,7 +626,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * The Google Cloud location of the workload
+   * The gcp location of the workload
    * </pre>
    *
    * <code>string location = 8;</code>
@@ -649,7 +649,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * The Google Cloud location of the workload
+   * The gcp location of the workload
    * </pre>
    *
    * <code>string location = 8;</code>
@@ -2126,7 +2126,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * The Google Cloud location of the workload
+     * The gcp location of the workload
      * </pre>
      *
      * <code>string location = 8;</code>
@@ -2148,7 +2148,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * The Google Cloud location of the workload
+     * The gcp location of the workload
      * </pre>
      *
      * <code>string location = 8;</code>
@@ -2170,7 +2170,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * The Google Cloud location of the workload
+     * The gcp location of the workload
      * </pre>
      *
      * <code>string location = 8;</code>
@@ -2191,7 +2191,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * The Google Cloud location of the workload
+     * The gcp location of the workload
      * </pre>
      *
      * <code>string location = 8;</code>
@@ -2208,7 +2208,7 @@ public final class Workload extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * The Google Cloud location of the workload
+     * The gcp location of the workload
      * </pre>
      *
      * <code>string location = 8;</code>

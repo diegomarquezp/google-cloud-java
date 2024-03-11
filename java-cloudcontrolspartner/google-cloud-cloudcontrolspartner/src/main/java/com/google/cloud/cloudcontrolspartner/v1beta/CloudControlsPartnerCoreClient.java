@@ -125,7 +125,7 @@ import javax.annotation.Generated;
  *    </tr>
  *    <tr>
  *      <td><p> ListCustomers</td>
- *      <td><p> Lists customers of a partner identified by its Google Cloud organization ID</td>
+ *      <td><p> Lists customers of a partner identified by its GCP organization id</td>
  *      <td>
  *      <p>Request object method variants only take one parameter, a request object, which must be constructed before the call.</p>
  *      <ul>
@@ -745,7 +745,7 @@ public class CloudControlsPartnerCoreClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
-   * Lists customers of a partner identified by its Google Cloud organization ID
+   * Lists customers of a partner identified by its GCP organization id
    *
    * <p>Sample code:
    *
@@ -778,7 +778,7 @@ public class CloudControlsPartnerCoreClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
-   * Lists customers of a partner identified by its Google Cloud organization ID
+   * Lists customers of a partner identified by its GCP organization id
    *
    * <p>Sample code:
    *
@@ -808,7 +808,7 @@ public class CloudControlsPartnerCoreClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
-   * Lists customers of a partner identified by its Google Cloud organization ID
+   * Lists customers of a partner identified by its GCP organization id
    *
    * <p>Sample code:
    *
@@ -843,7 +843,7 @@ public class CloudControlsPartnerCoreClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
-   * Lists customers of a partner identified by its Google Cloud organization ID
+   * Lists customers of a partner identified by its GCP organization id
    *
    * <p>Sample code:
    *
@@ -879,7 +879,7 @@ public class CloudControlsPartnerCoreClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
-   * Lists customers of a partner identified by its Google Cloud organization ID
+   * Lists customers of a partner identified by its GCP organization id
    *
    * <p>Sample code:
    *

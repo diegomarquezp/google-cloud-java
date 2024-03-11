@@ -211,7 +211,7 @@ public interface WorkloadOrBuilder
    *
    *
    * <pre>
-   * The Google Cloud location of the workload
+   * The gcp location of the workload
    * </pre>
    *
    * <code>string location = 8;</code>
@@ -223,7 +223,7 @@ public interface WorkloadOrBuilder
    *
    *
    * <pre>
-   * The Google Cloud location of the workload
+   * The gcp location of the workload
    * </pre>
    *
    * <code>string location = 8;</code>
