@@ -347,8 +347,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Google Cloud project ID in the partner's Google Cloud organization for
-   * receiving enhanced Logs for Partners.
+   * GCP project ID in the partner's GCP organization for receiving enhanced
+   * Logs for Partners.
    * </pre>
    *
    * <code>string partner_project_id = 7;</code>
@@ -371,8 +371,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Google Cloud project ID in the partner's Google Cloud organization for
-   * receiving enhanced Logs for Partners.
+   * GCP project ID in the partner's GCP organization for receiving enhanced
+   * Logs for Partners.
    * </pre>
    *
    * <code>string partner_project_id = 7;</code>
@@ -2160,8 +2160,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Google Cloud project ID in the partner's Google Cloud organization for
-     * receiving enhanced Logs for Partners.
+     * GCP project ID in the partner's GCP organization for receiving enhanced
+     * Logs for Partners.
      * </pre>
      *
      * <code>string partner_project_id = 7;</code>
@@ -2183,8 +2183,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Google Cloud project ID in the partner's Google Cloud organization for
-     * receiving enhanced Logs for Partners.
+     * GCP project ID in the partner's GCP organization for receiving enhanced
+     * Logs for Partners.
      * </pre>
      *
      * <code>string partner_project_id = 7;</code>
@@ -2206,8 +2206,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Google Cloud project ID in the partner's Google Cloud organization for
-     * receiving enhanced Logs for Partners.
+     * GCP project ID in the partner's GCP organization for receiving enhanced
+     * Logs for Partners.
      * </pre>
      *
      * <code>string partner_project_id = 7;</code>
@@ -2228,8 +2228,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Google Cloud project ID in the partner's Google Cloud organization for
-     * receiving enhanced Logs for Partners.
+     * GCP project ID in the partner's GCP organization for receiving enhanced
+     * Logs for Partners.
      * </pre>
      *
      * <code>string partner_project_id = 7;</code>
@@ -2246,8 +2246,8 @@ public final class Partner extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Google Cloud project ID in the partner's Google Cloud organization for
-     * receiving enhanced Logs for Partners.
+     * GCP project ID in the partner's GCP organization for receiving enhanced
+     * Logs for Partners.
      * </pre>
      *
      * <code>string partner_project_id = 7;</code>
